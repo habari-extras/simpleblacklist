@@ -20,7 +20,7 @@ class SimpleBlacklist extends Plugin
 	public function filter_plugin_config( $actions, $plugin_id )
 	{
 		if ( $plugin_id == $this->plugin_id() ) {
-			$actions[] = _('Configure');
+			$actions[] = _t('Configure');
 		}
 		
 		return $actions;
@@ -30,7 +30,7 @@ class SimpleBlacklist extends Plugin
 	{
 		if ( $plugin_id == $this->plugin_id() ) {
 			switch ( $action ) {
-				case _('Configure') :
+				case _t('Configure') :
 					$ui = new FormUI( strtolower( get_class( $this ) ) );
 					$blacklist= $ui->add( 'textarea', 'blacklist', 'Items to blacklist (words, IP addresses, URLs, etc):' );
 					$frequency= $ui->add('select', 'frequency', 'Bypass blacklist for frequent commenters:');
