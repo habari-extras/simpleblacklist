@@ -54,7 +54,7 @@ class SimpleBlacklist extends Plugin
 
 		// and if the person has more than 5 comments approved,
 		// they're likely not a spammer, so don't blacklist them
-		$bypass= Options::get('SimpleBlacklist:frequency');
+		$bypass= Options::get('simpleblacklist:frequency');
 		if ( $bypass ) {
 			$comments= Comments::get( array( 'email' => $comment->email,
 			'name' => $comment->name, 
