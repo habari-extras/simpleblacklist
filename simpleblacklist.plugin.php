@@ -67,7 +67,7 @@ class SimpleBlacklist extends Plugin
 		}
 	
 		$allow= true;
-		$blacklist= split( "\n", Options::get('SimpleBlacklist:blacklist') );
+		$blacklist= explode( "\n", Options::get('simpleblacklist:blacklist') );
 		foreach ( $blacklist as $item ) {
 			$item= trim(strtolower($item));
 			if ( '' == $item ) { continue; }
