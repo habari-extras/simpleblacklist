@@ -2,7 +2,7 @@
 
 class SimpleBlacklist extends Plugin
 {
-	const VERSION = '1.1';
+	const VERSION = '1.2';
 	
 	public function info()
 	{
@@ -32,8 +32,8 @@ class SimpleBlacklist extends Plugin
 			switch ( $action ) {
 				case _t('Configure') :
 					$ui = new FormUI( strtolower( get_class( $this ) ) );
-					$blacklist= $ui->append( 'textarea', 'blacklist', 'option:simpleblacklist_blacklist', _t( 'Items to blacklist (words, IP addresses, URLs, etc):' ) );
-					$frequency= $ui->append('select', 'frequency', 'option:simpleblacklist_frequency', _t( 'Bypass blacklist for frequent commenters:' ) );
+					$blacklist= $ui->append( 'textarea', 'blacklist', 'option:simpleblacklist__blacklist', _t( 'Items to blacklist (words, IP addresses, URLs, etc):' ) );
+					$frequency= $ui->append('select', 'frequency', 'option:simpleblacklist__frequency', _t( 'Bypass blacklist for frequent commenters:' ) );
 					$frequency->options = array( '0' => 'No', '1' => 'Yes');
 					$ui->append( 'submit', 'save', 'Save' );
 					$ui->out();
@@ -49,7 +49,7 @@ class SimpleBlacklist extends Plugin
 
 		// and if the person has more than 5 comments approved,
 		// they're likely not a spammer, so don't blacklist them
-		$bypass= Options::get('simpleblacklist_frequency');
+		$bypass= Options::get('simpleblacklist__frequency');
 		if ( $bypass ) {
 			$comments= Comments::get( array( 'email' => $comment->email,
 			'name' => $comment->name, 
@@ -62,7 +62,7 @@ class SimpleBlacklist extends Plugin
 		}
 	
 		$allow= true;
-		$blacklist= explode( "\n", Options::get('simpleblacklist_blacklist') );
+		$blacklist= explode( "\n", Options::get('simpleblacklist__blacklist') );
 		foreach ( $blacklist as $item ) {
 			$item= trim(strtolower($item));
 			if ( '' == $item ) { continue; }
