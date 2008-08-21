@@ -2,7 +2,7 @@
 
 class SimpleBlacklist extends Plugin
 {
-	const VERSION = '1.2';
+	const VERSION = '1.3-alpha';
 	
 	public function info()
 	{
