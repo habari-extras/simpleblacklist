@@ -32,8 +32,8 @@ class SimpleBlacklist extends Plugin
 			switch ( $action ) {
 				case _t('Configure') :
 					$ui = new FormUI( strtolower( get_class( $this ) ) );
-					$blacklist= $ui->append( 'textarea', 'blacklist', 'option:simpleblacklist__blacklist', _t( 'Items to blacklist (words, IP addresses, URLs, etc):' ) );
-					$frequency= $ui->append('select', 'frequency', 'option:simpleblacklist__frequency', _t( 'Bypass blacklist for frequent commenters:' ) );
+					$blacklist = $ui->append( 'textarea', 'blacklist', 'option:simpleblacklist__blacklist', _t( 'Items to blacklist (words, IP addresses, URLs, etc):' ) );
+					$frequency = $ui->append('select', 'frequency', 'option:simpleblacklist__frequency', _t( 'Bypass blacklist for frequent commenters:' ) );
 					$frequency->options = array( '0' => 'No', '1' => 'Yes');
 					$ui->append( 'submit', 'save', 'Save' );
 					$ui->out();
@@ -49,9 +49,9 @@ class SimpleBlacklist extends Plugin
 
 		// and if the person has more than 5 comments approved,
 		// they're likely not a spammer, so don't blacklist them
-		$bypass= Options::get('simpleblacklist__frequency');
+		$bypass = Options::get('simpleblacklist__frequency');
 		if ( $bypass ) {
-			$comments= Comments::get( array( 'email' => $comment->email,
+			$comments = Comments::get( array( 'email' => $comment->email,
 			'name' => $comment->name, 
 			'url' => $comment->url,
 			'status' => Comment::STATUS_APPROVED )
@@ -61,30 +61,30 @@ class SimpleBlacklist extends Plugin
 			}
 		}
 	
-		$allow= true;
-		$blacklist= explode( "\n", Options::get('simpleblacklist__blacklist') );
+		$allow = true;
+		$blacklist = explode( "\n", Options::get('simpleblacklist__blacklist') );
 		foreach ( $blacklist as $item ) {
-			$item= trim(strtolower($item));
+			$item = trim(strtolower($item));
 			if ( '' == $item ) { continue; }
 			// check against the commenter name
 			if ( false !== strpos( strtolower($comment->name), $item ) ) {
-				$allow= false;
+				$allow = false;
 			}
 			// check against the commenter email
 			 if ( false !== strpos( strtolower($comment->email), $item ) ) {
-			 	$allow= false;
+			 	$allow = false;
 			}
 			// check against the commenter URL
 			 if ( false !== strpos( strtolower($comment->url), $item ) ) {
-			 	$allow= false;
+			 	$allow = false;
 			}
 			// check against the commenter IP address
 			 if ( false !== strpos( $comment->ip, $item ) ) {
-			 	$allow= false;
+			 	$allow = false;
 			}
 			// now check the body of the comment
 			 if ( false !== strpos( strtolower($comment->content), $item ) ) {
-			 	$allow= false;
+			 	$allow = false;
 			}
 		}
 		return $allow;
