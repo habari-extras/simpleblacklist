@@ -45,7 +45,7 @@ class SimpleBlacklist extends Plugin
 	public function filter_comment_insert_allow( $allow, $comment )
 	{
 		// don't blacklist logged-in users: they can speak freely
-		if ( User::identify() ) { return true; }
+		if ( User::identify()->loggedin ) { return true; }
 
 		// and if the person has more than 5 comments approved,
 		// they're likely not a spammer, so don't blacklist them

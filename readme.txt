@@ -1,6 +1,6 @@
 Plugin: Simple Blacklist
 URL: http://habariproject.org
-Version: 1.1
+Version: 1.1.1
 Author: Habari Project
 
 Purpose 
@@ -36,6 +36,8 @@ Cleanup
 1. The plugin places several items in your Options table. All are prepended with 'simpleblacklist_'. You can safely delete these entries after you uninstall the plugin.
 
 Changelog
+Version 1.1.1
+Fixed: Updated to use new user object properly
 
 Version 1.1
 Change: Changed configuration dialog to conform to Habari's updated form's interface
