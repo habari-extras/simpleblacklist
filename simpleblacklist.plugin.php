@@ -2,8 +2,8 @@
 
 class SimpleBlacklist extends Plugin
 {
-	const VERSION = '1.3-alpha';
-	
+	const VERSION = '1.3.1-alpha';
+
 	public function info()
 	{
 		return array(
@@ -16,7 +16,7 @@ class SimpleBlacklist extends Plugin
 			'license' => 'Apache License 2.0'
 		);
 	}
-	
+
 	public function filter_plugin_config( $actions, $plugin_id )
 	{
 		if ( $plugin_id == $this->plugin_id() ) {
@@ -25,7 +25,7 @@ class SimpleBlacklist extends Plugin
 		
 		return $actions;
 	}
-	
+
 	public function action_plugin_ui( $plugin_id, $action )
 	{
 		if ( $plugin_id == $this->plugin_id() ) {
@@ -41,7 +41,7 @@ class SimpleBlacklist extends Plugin
 			}
 		}
 	}
-	
+
 	public function filter_comment_insert_allow( $allow, $comment )
 	{
 		// don't blacklist logged-in users: they can speak freely
@@ -60,7 +60,7 @@ class SimpleBlacklist extends Plugin
 				return true;
 			}
 		}
-	
+
 		$allow = true;
 		$blacklist = explode( "\n", Options::get('simpleblacklist__blacklist') );
 		foreach ( $blacklist as $item ) {
@@ -71,20 +71,23 @@ class SimpleBlacklist extends Plugin
 				$allow = false;
 			}
 			// check against the commenter email
-			 if ( false !== strpos( strtolower($comment->email), $item ) ) {
-			 	$allow = false;
+			if ( false !== strpos( strtolower($comment->email), $item ) ) {
+				$allow = false;
 			}
 			// check against the commenter URL
-			 if ( false !== strpos( strtolower($comment->url), $item ) ) {
-			 	$allow = false;
+			if ( false !== strpos( strtolower($comment->url), $item ) ) {
+				$allow = false;
 			}
 			// check against the commenter IP address
-			 if ( false !== strpos( $comment->ip, $item ) ) {
-			 	$allow = false;
+			if ( false !== strpos( long2ip( $comment->ip ), $item ) ) {
+				$allow = false;
 			}
 			// now check the body of the comment
-			 if ( false !== strpos( strtolower($comment->content), $item ) ) {
-			 	$allow = false;
+			if ( false !== strpos( strtolower($comment->content), $item ) ) {
+				$allow = false;
+			}
+			if( $allow === false ) {
+				 break;
 			}
 		}
 		return $allow;
