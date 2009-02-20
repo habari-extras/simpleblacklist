@@ -1,0 +1,9 @@
+<plugin>
+	<name>Simple Blacklist</name>
+	<url>http://habariproject.org/</url>
+	<author>Habari Community</author>
+	<authorurl>http://habariproject.org/</authorurl>
+	<description>Anything defined here that exists in a comment (author name, URL, IP, body) will cause that comment to be silently discarded.</description>
+	<license>Apache License 2.0</license>
+</plugin>
+
