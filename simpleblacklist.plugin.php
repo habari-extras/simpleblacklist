@@ -2,7 +2,7 @@
 
 class SimpleBlacklist extends Plugin
 {
-	const VERSION = '1.3.1-alpha';
+	const VERSION = '1.3.1-alpha2';
 
 	public function info()
 	{
@@ -33,8 +33,7 @@ class SimpleBlacklist extends Plugin
 				case _t('Configure') :
 					$ui = new FormUI( strtolower( get_class( $this ) ) );
 					$blacklist = $ui->append( 'textarea', 'blacklist', 'option:simpleblacklist__blacklist', _t( 'Items to blacklist (words, IP addresses, URLs, etc):' ) );
-					$frequency = $ui->append('select', 'frequency', 'option:simpleblacklist__frequency', _t( 'Bypass blacklist for frequent commenters:' ) );
-					$frequency->options = array( '0' => 'No', '1' => 'Yes');
+					$frequency = $ui->append('checkbox', 'frequency', 'option:simpleblacklist__frequency', _t( 'Bypass blacklist for frequent commenters:' ) );
 					$ui->append( 'submit', 'save', 'Save' );
 					$ui->out();
 				break;
