@@ -2,7 +2,7 @@
 
 class SimpleBlacklist extends Plugin
 {
-	const VERSION = '1.3.1-alpha2';
+	const VERSION = '1.3.2';
 
 	public function info()
 	{
@@ -33,12 +33,26 @@ class SimpleBlacklist extends Plugin
 				case _t('Configure') :
 					$ui = new FormUI( strtolower( get_class( $this ) ) );
 					$blacklist = $ui->append( 'textarea', 'blacklist', 'option:simpleblacklist__blacklist', _t( 'Items to blacklist (words, IP addresses, URLs, etc):' ) );
+					$blacklist->rows = 8;
+					$blacklist->class[] = 'resizable';
 					$frequency = $ui->append('checkbox', 'frequency', 'option:simpleblacklist__frequency', _t( 'Bypass blacklist for frequent commenters:' ) );
-					$ui->append( 'submit', 'save', 'Save' );
+					$ui->on_success( array( $this, 'updated_config' ) );
+					$ui->append( 'submit', 'save', _t( 'Save' ) );
 					$ui->out();
 				break;
 			}
 		}
+	}
+
+	public function updated_config( FormUI $ui )
+	{
+		$blacklist = explode( "\n", $ui->blacklist->value );
+		$blacklist = array_unique( $blacklist );
+		natsort( $blacklist );
+		$_POST[$ui->blacklist->field] =  implode( "\n", $blacklist );
+
+		Session::notice( _t( 'Blacklist saved.' , 'simpleblacklist' ) );
+		$ui->save();
 	}
 
 	public function filter_comment_insert_allow( $allow, $comment )
@@ -90,6 +104,11 @@ class SimpleBlacklist extends Plugin
 			}
 		}
 		return $allow;
+	}
+
+	public function action_update_check()
+	{
+	 	Update::add( 'Simple Blacklist', '81648298-ecf8-4a0e-b8b7-7a33bab23b46', $this->info->version );
 	}
 }
 ?>
