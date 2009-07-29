@@ -1,9 +1,12 @@
-<plugin>
+<?xml version="1.0" encoding="utf-8" ?> 
+<pluggable type="plugin">
 	<name>Simple Blacklist</name>
 	<url>http://habariproject.org/</url>
+	<version>1.3.3</version>
 	<author>Habari Community</author>
 	<authorurl>http://habariproject.org/</authorurl>
-	<description>Anything defined here that exists in a comment (author name, URL, IP, body) will cause that comment to be silently discarded.</description>
+	<description><![CDATA[Anything defined here that exists in a comment (author name, URL, IP, body) will cause that comment to be silently discarded.]]></description>
 	<license>Apache License 2.0</license>
-</plugin>
+	<copyright>2009</copyright> 
+</pluggable>
 

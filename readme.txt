@@ -1,6 +1,6 @@
 Plugin: Simple Blacklist
 URL: http://habariproject.org
-Version: 1.3.2
+Version: 1.3.3
 Author: Habari Project
 
 Purpose 
@@ -36,6 +36,9 @@ Cleanup
 1. The plugin places several items in your Options table. All are prepended with 'simpleblacklist__'. You can safely delete these entries after you uninstall the plugin.
 
 Changelog
+Version 1.3.3
+Updated: Works with 0.7 XML changes per r3624.
+
 Version 1.3.2
 Fixed: Blacklist textarea is now resizable, and automatically alphabetized.
 
