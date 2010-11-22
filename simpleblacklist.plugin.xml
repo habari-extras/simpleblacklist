@@ -2,11 +2,12 @@
 <pluggable type="plugin">
 	<name>Simple Blacklist</name>
 	<url>http://habariproject.org/</url>
-	<version>1.3.3</version>
-	<author>Habari Community</author>
-	<authorurl>http://habariproject.org/</authorurl>
+	<version>1.4</version>
+	<author url="http://habariproject.org/">Habari Community</author>
+	<url>http://habariproject.org/</url>
+	<guid>81648298-ecf8-4a0e-b8b7-7a33bab23b46</guid>
 	<description><![CDATA[Anything defined here that exists in a comment (author name, URL, IP, body) will cause that comment to be silently discarded.]]></description>
-	<license>Apache License 2.0</license>
+	<license url="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</license>
 	<copyright>2009</copyright> 
 </pluggable>
 

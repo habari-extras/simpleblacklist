@@ -2,31 +2,16 @@
 
 class SimpleBlacklist extends Plugin
 {
-	public function filter_plugin_config( $actions, $plugin_id )
+	public function configure()
 	{
-		if ( $plugin_id == $this->plugin_id() ) {
-			$actions[] = _t( 'Configure' );
-		}
-		
-		return $actions;
-	}
-
-	public function action_plugin_ui( $plugin_id, $action )
-	{
-		if ( $plugin_id == $this->plugin_id() ) {
-			switch ( $action ) {
-				case _t('Configure') :
-					$ui = new FormUI( strtolower( get_class( $this ) ) );
-					$blacklist = $ui->append( 'textarea', 'blacklist', 'option:simpleblacklist__blacklist', _t( 'Items to blacklist (words, IP addresses, URLs, etc):' ) );
-					$blacklist->rows = 8;
-					$blacklist->class[] = 'resizable';
-					$frequency = $ui->append('checkbox', 'frequency', 'option:simpleblacklist__frequency', _t( 'Bypass blacklist for frequent commenters:' ) );
-					$ui->on_success( array( $this, 'updated_config' ) );
-					$ui->append( 'submit', 'save', _t( 'Save' ) );
-					$ui->out();
-				break;
-			}
-		}
+		$ui = new FormUI( strtolower( get_class( $this ) ) );
+		$blacklist = $ui->append( 'textarea', 'blacklist', 'option:simpleblacklist__blacklist', _t( 'Items to blacklist (words, IP addresses, URLs, etc):' ) );
+		$blacklist->rows = 8;
+		$blacklist->class[] = 'resizable';
+		$frequency = $ui->append('checkbox', 'frequency', 'option:simpleblacklist__frequency', _t( 'Bypass blacklist for frequent commenters:' ) );
+		$ui->on_success( array( $this, 'updated_config' ) );
+		$ui->append( 'submit', 'save', _t( 'Save' ) );
+		return $ui;
 	}
 
 	public function updated_config( FormUI $ui )
@@ -89,11 +74,6 @@ class SimpleBlacklist extends Plugin
 			}
 		}
 		return $allow;
-	}
-
-	public function action_update_check()
-	{
-	 	Update::add( 'Simple Blacklist', '81648298-ecf8-4a0e-b8b7-7a33bab23b46', $this->info->version );
 	}
 }
 ?>
