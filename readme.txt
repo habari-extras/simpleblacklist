@@ -1,6 +1,6 @@
 Plugin: Simple Blacklist
 URL: http://habariproject.org
-Version: 1.3.3
+Version: 1.4
 Author: Habari Project
 
 Purpose 
@@ -9,7 +9,7 @@ Any blog that allows people to comment will receive spam. Simple Blacklist can b
 
 Requirements 
 
-Habari 0.7 alpha or higher.
+Habari 0.7 or higher.
 
 Installation
 
@@ -33,9 +33,12 @@ Uninstallation
 
 Cleanup
 
-1. The plugin places several items in your Options table. All are prepended with 'simpleblacklist__'. You can safely delete these entries after you uninstall the plugin.
+1. The plugin places items in your Options table. All are prepended with 'simpleblacklist__'. You can safely delete these entries after you uninstall the plugin.
 
 Changelog
+Version 1.4
+Updated: More trunk-enabled cleanup.
+
 Version 1.3.3
 Updated: Works with 0.7 XML changes per r3624.
 

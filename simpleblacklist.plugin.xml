@@ -3,12 +3,12 @@
 	<name>Simple Blacklist</name>
 	<url>http://habariproject.org/</url>
 	<version>1.4</version>
-	<author url="http://habariproject.org/">Habari Community</author>
+	<author url="http://habariproject.org/">The Habari Community</author>
 	<url>http://habariproject.org/</url>
 	<guid>81648298-ecf8-4a0e-b8b7-7a33bab23b46</guid>
 	<description><![CDATA[Anything defined here that exists in a comment (author name, URL, IP, body) will cause that comment to be silently discarded.]]></description>
 	<license url="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</license>
-	<copyright>2009</copyright> 
+	<copyright>2011</copyright> 
 </pluggable>
 
  
