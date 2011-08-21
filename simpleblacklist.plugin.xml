@@ -9,6 +9,9 @@
 	<description><![CDATA[Anything defined here that exists in a comment (author name, URL, IP, body) will cause that comment to be silently discarded.]]></description>
 	<license url="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</license>
 	<copyright>2011</copyright> 
+	<provides>
+		<feature url="http://wiki.habariproject.org/en/Feature/spamcheck">spamcheck</feature>
+	</provides>
 </pluggable>
 
  
