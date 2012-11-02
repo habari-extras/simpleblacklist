@@ -62,7 +62,7 @@ class SimpleBlacklist extends Plugin
 				$allow = false;
 			}
 			// check against the commenter IP address
-			if ( false !== strpos( long2ip( $comment->ip ), $item ) ) {
+			if ( false !== strpos( strpos($comment->ip, '.') > 0 ? $comment->ip : long2ip( $comment->ip ), $item ) ) {
 				$allow = false;
 			}
 			// now check the body of the comment
