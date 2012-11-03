@@ -46,7 +46,7 @@ class SimpleBlacklist extends Plugin
 			if( $this->check_comment( $comment ) === false )
 			{
 				$comment->status = Comment::STATUS_SPAM;
-				EventLog::log( "Comment by " . $comment->name . " automatically marked as spam because of the $reason.", 'info', 'Simple Blacklist', 'plugin' );
+				EventLog::log( "Comment by " . $comment->name . " automatically marked as spam", 'info', 'Simple Blacklist', 'plugin' );
 			}
 		}
 		return $comment;
