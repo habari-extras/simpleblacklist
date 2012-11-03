@@ -10,6 +10,11 @@ class SimpleBlacklist extends Plugin
 		$blacklist->class[] = 'resizable';
 		$frequency = $ui->append('checkbox', 'frequency', 'option:simpleblacklist__frequency', _t( 'Bypass blacklist for frequent commenters:' ) );
 		$keep = $ui->append('checkbox', 'keepcomments', 'option:simpleblacklist__keepcomments', _t( 'Keep comments (only mark them as spam):' ) );
+		$ui->append('fieldset', 'learning', _t('Learning from spam', __CLASS__));
+		$ui->learning->append('checkbox', 'blacklistauthor', 'option:simpleblacklist__blacklistauthor', _t( 'Auto-blacklist author' ) );
+		$ui->learning->append('checkbox', 'blacklistmail', 'option:simpleblacklist__blacklistmail', _t( 'Auto-blacklist mail' ) );
+		$ui->learning->append('checkbox', 'blacklisturl', 'option:simpleblacklist__blacklisturl', _t( 'Auto-blacklist url' ) );
+		$ui->learning->append('checkbox', 'blacklistip', 'option:simpleblacklist__blacklistip', _t( 'Auto-blacklist ip' ) );
 		$ui->on_success( array( $this, 'updated_config' ) );
 		$ui->append( 'submit', 'save', _t( 'Save' ) );
 		return $ui;
@@ -98,6 +103,36 @@ class SimpleBlacklist extends Plugin
 		}
 		
 		return $allow;
+	}
+	
+	function action_comment_update_status ($comment, $status, $value)
+	{
+		// This is semi-optimal because field changes are always invoked so this applies to every comment and not only to comments marked as spam manually. Doesn't matter but costs resources. There's no other way, so do it.
+		
+		if( $value == Comment::STATUS_SPAM )
+		{
+			$blacklistauthor = Options::get( 'simpleblacklist__blacklistauthor', false );
+			$blacklistmail = Options::get( 'simpleblacklist__blacklistmail', false );
+			$blacklisturl = Options::get( 'simpleblacklist__blacklisturl', false );
+			$blacklistip = Options::get( 'simpleblacklist__blacklistip', false );
+			$blacklist = Options::get( 'simpleblacklist__blacklist', "");
+			$newblacklist = explode( "\n", $blacklist );
+			if ( $blacklistauthor ) {
+				$newblacklist[] = $comment->author;
+			}
+			if ( $blacklistmail ) {
+				$newblacklist[] = $comment->email;
+			}
+			if ( $blacklisturl ) {
+				$newblacklist[] = $comment->url;
+			}
+			if ( $blacklistip ) {
+				$newblacklist[] = $comment->ip;
+			}
+			$newblacklist = array_unique( $newblacklist );
+			natsort( $newblacklist );
+			Options::set( 'simpleblacklist__blacklist', implode( "\n", $newblacklist ));
+		}
 	}
 }
 ?>
