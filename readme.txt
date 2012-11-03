@@ -40,6 +40,7 @@ Cleanup
 
 Changelog
 Version 2.0
+Added German translation. Translating into other languages is now easy.
 New feature: Auto-blacklist chosen parameters
 New feature: Optionally keep comments
 Fixed: Compatibility with Habari 0.8 and higher

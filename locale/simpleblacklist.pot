@@ -1,0 +1,63 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-03 03:50+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: simpleblacklist.plugin.php:13
+msgid "Items to blacklist (words, IP addresses, URLs, etc):"
+msgstr ""
+
+#: simpleblacklist.plugin.php:16
+msgid "Bypass blacklist for frequent commenters:"
+msgstr ""
+
+#: simpleblacklist.plugin.php:17
+msgid "Keep comments (only mark them as spam):"
+msgstr ""
+
+#: simpleblacklist.plugin.php:18
+msgid "Learning from spam"
+msgstr ""
+
+#: simpleblacklist.plugin.php:19
+msgid "Auto-blacklist author"
+msgstr ""
+
+#: simpleblacklist.plugin.php:20
+msgid "Auto-blacklist mail"
+msgstr ""
+
+#: simpleblacklist.plugin.php:21
+msgid "Auto-blacklist url"
+msgstr ""
+
+#: simpleblacklist.plugin.php:22
+msgid "Auto-blacklist ip"
+msgstr ""
+
+#: simpleblacklist.plugin.php:24
+msgid "Save"
+msgstr ""
+
+#: simpleblacklist.plugin.php:35
+msgid "Blacklist saved."
+msgstr ""
+
+#: simpleblacklist.plugin.php:54
+#, php-format
+msgid "Comment by %s automatically marked as spam"
+msgstr ""

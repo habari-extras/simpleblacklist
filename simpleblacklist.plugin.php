@@ -2,21 +2,26 @@
 
 class SimpleBlacklist extends Plugin
 {
+	public function action_init()
+	{
+		$this->load_text_domain( 'simpleblacklist' );
+	}
+	
 	public function configure()
 	{
 		$ui = new FormUI( strtolower( get_class( $this ) ) );
-		$blacklist = $ui->append( 'textarea', 'blacklist', 'option:simpleblacklist__blacklist', _t( 'Items to blacklist (words, IP addresses, URLs, etc):' ) );
+		$blacklist = $ui->append( 'textarea', 'blacklist', 'option:simpleblacklist__blacklist', _t( 'Items to blacklist (words, IP addresses, URLs, etc):', 'simpleblacklist' ) );
 		$blacklist->rows = 8;
 		$blacklist->class[] = 'resizable';
-		$frequency = $ui->append('checkbox', 'frequency', 'option:simpleblacklist__frequency', _t( 'Bypass blacklist for frequent commenters:' ) );
-		$keep = $ui->append('checkbox', 'keepcomments', 'option:simpleblacklist__keepcomments', _t( 'Keep comments (only mark them as spam):' ) );
-		$ui->append('fieldset', 'learning', _t('Learning from spam', __CLASS__));
-		$ui->learning->append('checkbox', 'blacklistauthor', 'option:simpleblacklist__blacklistauthor', _t( 'Auto-blacklist author' ) );
-		$ui->learning->append('checkbox', 'blacklistmail', 'option:simpleblacklist__blacklistmail', _t( 'Auto-blacklist mail' ) );
-		$ui->learning->append('checkbox', 'blacklisturl', 'option:simpleblacklist__blacklisturl', _t( 'Auto-blacklist url' ) );
-		$ui->learning->append('checkbox', 'blacklistip', 'option:simpleblacklist__blacklistip', _t( 'Auto-blacklist ip' ) );
+		$frequency = $ui->append('checkbox', 'frequency', 'option:simpleblacklist__frequency', _t( 'Bypass blacklist for frequent commenters:', 'simpleblacklist' ) );
+		$keep = $ui->append('checkbox', 'keepcomments', 'option:simpleblacklist__keepcomments', _t( 'Keep comments (only mark them as spam):', 'simpleblacklist' ) );
+		$ui->append('fieldset', 'learning', _t('Learning from spam', 'simpleblacklist'));
+		$ui->learning->append('checkbox', 'blacklistauthor', 'option:simpleblacklist__blacklistauthor', _t( 'Auto-blacklist author', 'simpleblacklist' ) );
+		$ui->learning->append('checkbox', 'blacklistmail', 'option:simpleblacklist__blacklistmail', _t( 'Auto-blacklist mail', 'simpleblacklist' ) );
+		$ui->learning->append('checkbox', 'blacklisturl', 'option:simpleblacklist__blacklisturl', _t( 'Auto-blacklist url', 'simpleblacklist' ) );
+		$ui->learning->append('checkbox', 'blacklistip', 'option:simpleblacklist__blacklistip', _t( 'Auto-blacklist ip', 'simpleblacklist' ) );
 		$ui->on_success( array( $this, 'updated_config' ) );
-		$ui->append( 'submit', 'save', _t( 'Save' ) );
+		$ui->append( 'submit', 'save', _t( 'Save', 'simpleblacklist' ) );
 		return $ui;
 	}
 
@@ -46,7 +51,7 @@ class SimpleBlacklist extends Plugin
 			if( $this->check_comment( $comment ) === false )
 			{
 				$comment->status = Comment::STATUS_SPAM;
-				EventLog::log( "Comment by " . $comment->name . " automatically marked as spam", 'info', 'Simple Blacklist', 'plugin' );
+				EventLog::log( sprintf(_t("Comment by %s automatically marked as spam", 'simpleblacklist'), $comment->name), 'info', 'Simple Blacklist', 'plugin' );
 			}
 		}
 		return $comment;
