@@ -127,7 +127,7 @@ class SimpleBlacklist extends Plugin
 				$newblacklist[] = $comment->url;
 			}
 			if ( $blacklistip ) {
-				$newblacklist[] = $comment->ip;
+				$newblacklist[] = (strpos($comment->ip, '.') > 0 ? $comment->ip : long2ip( $comment->ip ));
 			}
 			$newblacklist = array_unique( $newblacklist );
 			natsort( $newblacklist );
