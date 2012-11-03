@@ -9,6 +9,7 @@ class SimpleBlacklist extends Plugin
 		$blacklist->rows = 8;
 		$blacklist->class[] = 'resizable';
 		$frequency = $ui->append('checkbox', 'frequency', 'option:simpleblacklist__frequency', _t( 'Bypass blacklist for frequent commenters:' ) );
+		$keep = $ui->append('checkbox', 'keepcomments', 'option:simpleblacklist__keepcomments', _t( 'Keep comments (only mark them as spam):' ) );
 		$ui->on_success( array( $this, 'updated_config' ) );
 		$ui->append( 'submit', 'save', _t( 'Save' ) );
 		return $ui;
@@ -26,6 +27,27 @@ class SimpleBlacklist extends Plugin
 	}
 
 	public function filter_comment_insert_allow( $allow, $comment )
+	{
+		// Don't discard comments at all when the user disabled that (action_comment_insert_before will mark them as spam then)
+		if(Options::get( 'simpleblacklist__keepcomments' )) { return true; }
+		
+		return $this->check_comment( $comment );
+	}
+	
+	public function action_comment_insert_before ( $comment )
+	{
+		if( $comment->type == Comment::COMMENT && $comment->status != Comment::STATUS_SPAM)
+		{
+			if( $this->check_comment( $comment ) === false )
+			{
+				$comment->status = Comment::STATUS_SPAM;
+				EventLog::log( "Comment by " . $comment->name . " automatically marked as spam because of the $reason.", 'info', 'Simple Blacklist', 'plugin' );
+			}
+		}
+		return $comment;
+	}
+	
+	function check_comment( $comment )
 	{
 		// don't blacklist logged-in users: they can speak freely
 		if ( User::identify()->loggedin ) { return true; }
@@ -45,6 +67,7 @@ class SimpleBlacklist extends Plugin
 		}
 
 		$allow = true;
+		$reason = "";
 		$blacklist = explode( "\n", Options::get( 'simpleblacklist__blacklist' ) );
 		foreach ( $blacklist as $item ) {
 			$item = trim( strtolower( $item ) );
@@ -73,6 +96,7 @@ class SimpleBlacklist extends Plugin
 				 break;
 			}
 		}
+		
 		return $allow;
 	}
 }
