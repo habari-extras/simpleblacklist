@@ -42,6 +42,8 @@ Changelog
 Version 2.0
 New feature: Auto-blacklist chosen parameters
 New feature: Optionally keep comments
+Fixed: Compatibility with Habari 0.8 and higher
+Fixed: IPs now have to be a direct match (so 41.215.183.30 does not get blocked when 41.215.183.3 is on the list)
 
 Version 1.4
 Updated: More trunk-enabled cleanup.
